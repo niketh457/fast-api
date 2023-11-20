@@ -4,7 +4,7 @@ from psycopg2.extras import RealDictCursor
 import time
 
 from . import models
-from .routers import notes, user
+from .routers import notes, user, authentication
 from .database import engine
 
 models.Base.metadata.create_all(bind=engine)
@@ -30,5 +30,6 @@ async def root():
     return {"message": "Hello World"}
 
 
-app.include_router(notes.note_route)
-app.include_router(user.user_route)
+app.include_router(notes.router)
+app.include_router(user.router)
+app.include_router(authentication.router)
