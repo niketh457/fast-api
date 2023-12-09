@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from typing import Optional
 from pydantic import BaseModel, EmailStr
 
 
@@ -19,6 +19,7 @@ class NoteUpdate(NoteBase):
 
 class NoteResponse(NoteBase):
     id: int
+    user_id: int
     noted_at: datetime
 
     class Config:
