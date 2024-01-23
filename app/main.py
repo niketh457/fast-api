@@ -4,8 +4,23 @@ from .routers import notes, user, authentication, likes
 from .database import engine
 from .config import settings
 
-Base.metadata.create_all(bind=engine)
+from fastapi.middleware.cors import CORSMiddleware
+
+# Base.metadata.create_all(bind=engine)
+# The above commad tells sql_alchemy to create the tables with the names mentioned in models.py file
+#  as we use data-migration tool it is not necessery now.
+
 app = FastAPI()
+
+origins = ['*']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
