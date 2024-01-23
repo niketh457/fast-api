@@ -9,27 +9,16 @@ class NoteBase(BaseModel):
     title: str
     note: str
     completed: bool = True
-
+    
 
 class NoteUpdate(NoteBase):
     pass
-
-
-# for sending output for the user (response)
-
-class NoteResponse(NoteBase):
-    id: int
-    user_id: int
-    noted_at: datetime
-
-    class Config:
-        orm_mode = True
-
 
 class User(BaseModel):
     email: EmailStr
     password: str
 
+# for sending output for the user (response)
 
 class UserResponse(BaseModel):
     id: int
@@ -38,7 +27,29 @@ class UserResponse(BaseModel):
     class Config:
         orm_mode = True
 
+class NoteResponse(NoteBase):
+    id: int
+    noted_at: datetime
+    user: UserResponse
+
+    class Config:
+        orm_mode = True
+
 
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    id: Optional[int] = None
+    
+
+class Likes(BaseModel):
+    note_id: int
+    like: bool
